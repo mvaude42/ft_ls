@@ -14,16 +14,27 @@
 # define FT_LS_H
 
 # define ENV ft_env()
+# define ALL 0
+# define LONG 1
+# define REVERSE 2
+# define RECURSIVE 3
+# define BYTIME 4
 
 # include <libft.h>
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct		s_env
+typedef struct		s_args
 {
-	int				fd;
+    int             error;
 	char			*str;
 	struct s_env	*next;
+}					t_args;
+
+typedef struct		s_env
+{
+	char[5]			flags;
+    struct s_args	*args;
 }					t_env;
 
 t_env      *ft_env(void);
