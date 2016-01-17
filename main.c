@@ -22,8 +22,6 @@ void	threw_error(int error, char *str)
 
 void	check_option(char *params, int nb)
 {
-	if (nb < 0)
-		return;
 	// TODO: check -l option
 	if (params[nb] == 'l')
 		ENV->flags[LONG] += 1;
@@ -42,32 +40,36 @@ void	check_option(char *params, int nb)
 	// TODO: otherwhile threw an error
 	else
 		threw_error(1, params);
-	check_option(params, nb - 1);
+	if (nb > 1)
+		check_option(params, nb - 1);
 }
 
 void	check_long_options(char *params)
 {
 	// TODO: check recursive option
-	if (ft_strcmp(params, "recursive") == 0)
+	if (ft_strcmp(params, "--recursive") == 0)
 		ENV->flags[RECURSIVE] += 1;
 	// TODO: check all option
-	else if (ft_strcmp(params, "all") == 0)
+	else if (ft_strcmp(params, "--all") == 0)
 		ENV->flags[ALL] += 1;
 	// TODO: check reverse option
-	else if (ft_strcmp(params, "reverse") == 0)
+	else if (ft_strcmp(params, "--reverse") == 0)
 		ENV->flags[REVERSE] += 1;
 	// TODO: otherwhile exit with error with the option
 	else
 		threw_error(0, params);
-	(void)params;
 }
 
 void	check_options(char *params)
 {
-		// TODO: if '--' then check_long_options
-		if (params[0] == '-')
-			check_long_options(params + 1);
-		// TODO: check recusrively all char
+	printf("param: %s\n", params);
+	// TODO: if '--' then check_long_options
+	if (params[1] == '-')
+	{
+		printf("test\n");
+		check_long_options(params);
+	}
+	else
 		check_option(params, ft_strlen(params) - 1);
 }
 
@@ -78,7 +80,7 @@ void	save_flags(int flags, char **params)
 	i = 0;
 	while (i < flags)
 	{
-		check_options(params[i] + 1);
+		check_options(params[i]);
 		i++;
 	}
 }
@@ -163,4 +165,8 @@ int		main(int ac, char **av)
 	free(ENV->args->str);
 	free(ENV->args);
     //free(ENV);
+	for (int i = 0; i < 5; i++)
+	{
+		printf("option %d: %d\n", i, ENV->flags[i]);
+	}
 }
