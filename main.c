@@ -7,30 +7,29 @@ void	parser(int ac, char **av)
 	int		j;
 	char	*tmp;
 	char**	copy;
+	int		flags;
 
-	copy = malloc(sizeof(av));
+	copy = malloc(ac * sizeof(av));
+	flags = 0;
 	i = 0;
 	while (i < ac)
 	{
+		if (av[i][0] == '-')
+			flags++;
 		copy[i] = ft_strdup(av[i]);
-		printf("%d ROUND\n", i);
-		ft_putstr(av[i]);
-		ft_putstr("\n");
-		ft_putstr("---------------------\n");
 		i++;
 	}
+	
+	printf("number of flags: %d\n", flags);
 
 	i = 0;
 	while (i < ac)
 	{
 		j = 1;
-		printf("i= %d\n",i);
 		while (j < ac)
 		{
-			printf("j= %d\n", j);
-			if (ft_strcmp(copy[j - 1], copy[j]) > 0)
+			if (ft_stricmp(copy[j - 1], copy[j]) > 0)
 			{
-				printf("try\n");
 				tmp = malloc(sizeof(copy[j - 1]));
 				ft_strcpy(tmp, copy[j - 1]);
 				ft_strcpy(copy[j - 1], copy[j]);
