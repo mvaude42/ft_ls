@@ -1,21 +1,34 @@
 #include "ft_ls.h"
 #include <stdio.h>
 
-void	check_options(int flags, char **params)
+void	check_option(char *params, int nb)
 {
-	// TODO: check --recursive option
-	// TODO: check --all option
-	// TODO: check --reverse option
-}
-
-void	check_options(int flags, char **params)
-{
-		// TODO: if '--' then check_long_options
+	if (nb < 0)
+		return;
 		// TODO: check -l option
 		// TODO: check -R option
 		// TODO: check -a option
 		// TODO: check -r option
 		// TODO: check -t option
+	check_option(params, nb - 1);
+}
+
+void	check_long_options(char *params)
+{
+	// TODO: check recursive option
+	// TODO: check all option
+	// TODO: check reverse option
+	// TODO: otherwhile exit with error with the option
+	(void)params;
+}
+
+void	check_options(char *params)
+{
+		// TODO: if '--' then check_long_options
+		if (params[0] == '-')
+			check_long_options(params + 1);
+		// TODO: check recusrively all char
+		check_option(params, ft_strlen(params));
 }
 
 void	save_flags(int flags, char **params)
@@ -25,6 +38,7 @@ void	save_flags(int flags, char **params)
 	i = 0;
 	while (i < flags)
 	{
+		check_options(params[i] + 1);
 		i++;
 	}
 }
