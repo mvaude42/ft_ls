@@ -20,7 +20,7 @@
 # define RECURSIVE 3
 # define BYTIME 4
 
-# include <libft.h>
+# include "libft/includes/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 
@@ -33,6 +33,7 @@ typedef struct		s_args
 
 typedef struct		s_env
 {
+    int             ac;
 	char			flags[5];
     struct s_args	*args;
 }					t_env;

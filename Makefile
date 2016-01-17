@@ -18,8 +18,6 @@ SRC			=		ft_ls.c \
                     main.c \
                     ft_env.c
 
-CC          =       clang
-
 SRC_PATH	=		./
 
 H_PATH		=		./libft/includes
@@ -40,14 +38,13 @@ all			:
 	@make $(NAME)
 
 $(NAME)		:		$(OBJ)
-	$(CC) $(OBJ) -I$(H_PATH) -I$(SRC_PATH) -L$(LIB_PATH) -lft -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -I$(H_PATH) -I$(SRC_PATH) -L$(LIB_PATH) -lft -o $(NAME)
 
 %.o			:		$(SRC_PATH)/%.c
-	$(CC) -o $@ -I$(H_PATH) -I$(SRC_PATH) -c $^
+	$(CC) $(CFLAGS) -o $@ -I$(H_PATH) -I$(SRC_PATH) -c $^
 
 clean		:
 	rm -f $(OBJ)
-	rm -f libft.h.gch
 
 fclean		:		clean
 	rm -f $(NAME)

@@ -1,6 +1,50 @@
 #include "ft_ls.h"
 #include <stdio.h>
 
+void	check_options(int flags, char **params)
+{
+	// TODO: check --recursive option
+	// TODO: check --all option
+	// TODO: check --reverse option
+}
+
+void	check_options(int flags, char **params)
+{
+		// TODO: if '--' then check_long_options
+		// TODO: check -l option
+		// TODO: check -R option
+		// TODO: check -a option
+		// TODO: check -r option
+		// TODO: check -t option
+}
+
+void	save_flags(int flags, char **params)
+{
+	int	i;
+
+	i = 0;
+	while (i < flags)
+	{
+		i++;
+	}
+}
+
+void		save_objects(int flags, char **params)
+{
+	(void)flags;
+	(void)**params;
+}
+
+void		save_params(int flags, char **params)
+{
+	//int		i;
+	//t_args	*args;
+
+	//i = ENV->ac;
+	save_flags(flags, params);
+	//save_objects(flags, params);
+}
+
 void	parser(int ac, char **av)
 {
 	int		i;
@@ -11,26 +55,27 @@ void	parser(int ac, char **av)
 
 	copy = malloc(ac * sizeof(av));
 	flags = 0;
-	i = 0;
+	i = 1;
 	while (i < ac)
 	{
 		if (av[i][0] == '-')
 			flags++;
-		copy[i] = ft_strdup(av[i]);
+		copy[i - 1] = ft_strdup(av[i]);
 		i++;
 	}
 	
-	printf("number of flags: %d\n", flags);
+//	printf("number of flags: %d\n", flags);
+//	printf("number of ac: %d\n", ENV->ac);
 
 	i = 0;
-	while (i < ac)
+	while (i < ENV->ac - 1)
 	{
 		j = 1;
-		while (j < ac)
+		while (j < ENV->ac - 1)
 		{
 			if (ft_stricmp(copy[j - 1], copy[j]) > 0)
 			{
-				tmp = malloc(sizeof(copy[j - 1]));
+				tmp = malloc(ft_strlen(copy[j - 1]) * sizeof(copy[j - 1]));
 				ft_strcpy(tmp, copy[j - 1]);
 				ft_strcpy(copy[j - 1], copy[j]);
 				ft_strcpy(copy[j], tmp);
@@ -40,20 +85,26 @@ void	parser(int ac, char **av)
 		}
 		i++;
 	}
-
+/*
 	i = 1;
 	while (i < ac)
 	{
 		printf("#%d: %s\n", i, copy[i]);
 		i++;
 	}
+*/
+	save_params(flags, copy);
+	i = ENV->ac - 1;
+	while (--i >= 0)
+		free(copy[i]);
+	free(copy);
 }
 
 int		main(int ac, char **av)
 {
+	ft_putstr("hello\n");
+	ENV->ac = ac;
 	ENV->args = malloc(sizeof(t_args));
-	ENV->args->str = ft_strdup("hello\n");
-	ft_putstr(ENV->args->str);
 	parser(ac, av);
 	free(ENV->args->str);
 	free(ENV->args);
