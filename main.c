@@ -1,24 +1,64 @@
 #include "ft_ls.h"
 #include <stdio.h>
 
+void	threw_error(int error, char *str)
+{
+	if (error == 0)
+	{
+		perror(str);
+		exit(1);
+	}
+	else if (error == 0)
+	{
+		perror(str);
+		exit(1);
+	}
+	else
+	{
+		perror("unknown error");
+		exit(2);
+	}
+}
+
 void	check_option(char *params, int nb)
 {
 	if (nb < 0)
 		return;
-		// TODO: check -l option
-		// TODO: check -R option
-		// TODO: check -a option
-		// TODO: check -r option
-		// TODO: check -t option
+	// TODO: check -l option
+	if (params[nb] == 'l')
+		ENV->flags[LONG] += 1;
+	// TODO: check -R option
+	else if (params[nb] == 'R')
+		ENV->flags[RECURSIVE] += 1;
+	// TODO: check -a option
+	else if (params[nb] == 'a')
+		ENV->flags[ALL] += 1;
+	// TODO: check -r option
+	else if (params[nb] == 'r')
+		ENV->flags[REVERSE] += 1;
+	// TODO: check -t option
+	else if (params[nb] == 't')
+		ENV->flags[BYTIME] += 1;
+	// TODO: otherwhile threw an error
+	else
+		threw_error(1, params);
 	check_option(params, nb - 1);
 }
 
 void	check_long_options(char *params)
 {
 	// TODO: check recursive option
+	if (ft_strcmp(params, "recursive") == 0)
+		ENV->flags[RECURSIVE] += 1;
 	// TODO: check all option
+	else if (ft_strcmp(params, "all") == 0)
+		ENV->flags[ALL] += 1;
 	// TODO: check reverse option
+	else if (ft_strcmp(params, "reverse") == 0)
+		ENV->flags[REVERSE] += 1;
 	// TODO: otherwhile exit with error with the option
+	else
+		threw_error(0, params);
 	(void)params;
 }
 
@@ -28,7 +68,7 @@ void	check_options(char *params)
 		if (params[0] == '-')
 			check_long_options(params + 1);
 		// TODO: check recusrively all char
-		check_option(params, ft_strlen(params));
+		check_option(params, ft_strlen(params) - 1);
 }
 
 void	save_flags(int flags, char **params)
