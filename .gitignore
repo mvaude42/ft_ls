@@ -1,2 +1,4 @@
 ft_ls
 *.o
+a.out
+test.c
