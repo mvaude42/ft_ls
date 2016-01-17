@@ -28,12 +28,12 @@ typedef struct		s_args
 {
     int             error;
 	char			*str;
-	struct s_env	*next;
+	struct s_args	*next;
 }					t_args;
 
 typedef struct		s_env
 {
-	char[5]			flags;
+	char			flags[5];
     struct s_args	*args;
 }					t_env;
 
