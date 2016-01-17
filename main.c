@@ -93,12 +93,18 @@ void		save_objects(int flags, char **params)
 
 void		save_params(int flags, char **params)
 {
-	//int		i;
-	//t_args	*args;
+	int		i;
 
-	//i = ENV->ac;
 	save_flags(flags, params);
-	//save_objects(flags, params);
+	//printf("%d\n", flags);
+	i = (ENV->flags[REVERSE] ? -(ENV->ac - 2) : flags);
+	printf("params:\n");
+	while (ft_abs(i) >= flags && ft_abs(i) < ENV->ac - 1)
+	{
+		printf("%s\n", params[ft_abs(i)]);
+		i++;
+	}
+	save_objects(flags, params);
 }
 
 void	parser(int ac, char **av)
